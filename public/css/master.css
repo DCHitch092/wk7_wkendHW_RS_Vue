@@ -5,8 +5,9 @@ h1, h2, h3, h4 {
 body{
   font-family: 'Montserrat', sans-serif;
   color: #333333;
+  margin: 0;
 }
 
 html {
-  background-color: #ffffcc; 
+  background-color: #ffffcc;
 }

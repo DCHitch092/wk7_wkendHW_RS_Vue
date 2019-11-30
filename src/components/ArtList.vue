@@ -17,8 +17,23 @@ export default {
 </script>
 
 <style lang="css" scoped>
-ul{
-  display: flex;
-  flex-wrap: wrap;
+
+ul#artwork-container{
+    display: grid;
+    grid-template-columns: repeat(12, minmax(2em, 0.5fr));
+    grid-gap: 0.4em;
+    grid-auto-flow: row dense;
+    list-style: none;
+    grid-auto-rows: 5em;
 }
+
+li.artwork {
+    justify-content: center;
+    align-items: center;
+}
+
+li.artwork img {
+  max-width: 90%
+}
+
 </style>

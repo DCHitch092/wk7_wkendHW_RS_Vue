@@ -1,22 +1,31 @@
 <template>
   <div id="app">
+
     <header>
       <nav>
         <img id="logo" src="/reijer-stolk-logo.svg" alt="logo for the reijer stolk vue app">
-        <ul>
-          <li></li>
-        </ul>
       </nav>
-      <span id="tagline">a vue inside the artwork of Reijer Stolk (1896 - 1945)</span>
-    </header>
-    <ul>
-      <li>method1</li>
-      <li>method2</li>
-      <li>method3</li>
-      <li>method4</li>
-    </ul>
-    <art-list :artworks='artworks' />
 
+      <span id="tagline">a vue inside the artwork of  <b>Reijer Stolk</b>  (1896 - 1945)</span>
+
+    </header>
+
+    <section id="filters">
+      <ul>
+        <li>method1</li>
+        <li>method2</li>
+        <li>method3</li>
+        <li>method4</li>
+      </ul>
+    </section>
+
+    <section id="list-container">
+      <art-list :artworks='artworks' />
+    </section>
+
+    <footer>
+
+    </footer>
   </div>
 </template>
 
@@ -47,24 +56,81 @@ export default {
 <style>
 #app  {
   display: grid;
-  grid-template-rows: 200px 1fr 6fr 2fr 1fr;
+  grid-template-rows: 1fr auto auto 1fr;
   grid-template-columns: auto;
-    width: 95%;
-    border: 1px solid #000;
+  margin: 0;
+  padding: 0;
 }
 
 header {
-  grid-row: 0 1;
-  grid-column: 0 1;
-  border: 1px solid #000;
-}
-
-header span {
-
-  background-color: ;
+  grid-row: 1 / 2;
+  grid-column: 1 / 1;
+  background: #ffffff;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
 #logo {
   width: 25%;
+    padding: 2em 2em 1em 2em;
 }
+
+header span {
+  background-color: #cc9966;
+    color: #ffffcc;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 0.5em 0;
+    font-size: 1.5em;
+}
+
+header span b {
+  padding: 0 0.3em;
+}
+
+section#filters {
+  grid-row: 2 / 3;
+  grid-column: 1 / 1;
+  display: flex;
+  justify-content: center;
+
+}
+
+#filters ul {
+  display:flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+#filters ul li {
+  margin: 0 0 1em 0;
+}
+
+#tagline {
+
+}
+section#list-container{
+display: flex;
+max-height: 15%;
+max-width: 100%;
+-ms-flex-wrap: wrap;
+flex-wrap: wrap;
+border: solid;
+grid-row: 3 / 4;
+grid-column: 1 / 1;
+}
+
+section#footer {
+  grid-row: 3 / 4;
+    grid-column: 1 / 1;
+    background-color: #cc9966;
+      color: #ffffcc;
+}
+
+
 </style>
