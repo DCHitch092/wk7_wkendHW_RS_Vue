@@ -48,7 +48,7 @@ export default {
   computed:{
     pressedClass: function() {
       return{
-        'pressed': pressedClass;
+        // 'pressed': pressedClass;
       }
     }
   }
@@ -57,17 +57,17 @@ export default {
 
   methods: {
     filterOne(){
-      this.pressedClass = !this.pressedClass
+      // this.pressedClass = !this.pressedClass
 
     },
     filterTwo(){
-      this.pressedClass = !this.pressedClass
+      // this.pressedClass = !this.pressedClass
     },
     filterThree(){
-      this.pressedClass = !this.pressedClass
+      // this.pressedClass = !this.pressedClass
     },
     filterFour(){
-      this.pressedClass = !this.pressedClass
+      // this.pressedClass = !this.pressedClass
     },
 
   },
