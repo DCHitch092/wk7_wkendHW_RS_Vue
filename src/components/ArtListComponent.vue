@@ -4,18 +4,24 @@
       <!-- {{ getOrientation() >= 1 ? true | false }} -->
       <!-- <img :src="artwork.webImage.url" /> -->
         <!-- {{ getOrientation() }}{{ checkCSS() }} -->
-    <img class="jumble" :src="artwork.webImage.url" :alt="artwork.title"/>
+    <!-- <img class="jumble" :src="artwork.webImage.url" :alt="artwork.title"/> -->
+    <artImageReturn :source="source" />
   </li>
 </template>
 
 <script>
-// import ArtImageReturn from './ArtImageReturn.vue'
+import ArtImageReturn from './ArtImageReturn.vue'
 
 export default {
   name: 'art-list-component',
 
   data() {
     return {
+      imageObject: this.artwork.webImage,
+      source: {
+        type: this.artwork.webImage.url,
+        required: true
+      }
       // objectHeight: getHeight(),
       // objectWidth: getWidth(),
       // portaitSpan: "",
@@ -29,6 +35,9 @@ export default {
   },
 
   props: ['artwork'],
+  components: {
+    'artImageReturn': ArtImageReturn
+  },
 
   computed: {
     objectWidth: function(){
@@ -82,10 +91,6 @@ export default {
       const landscapeSpan = this.objectWidth.round();
       return `portrait-span-${portraitSpan} landscape-span-${landscapeSpan}`
     }
-  },
-
-  components: {
-    // 'art-image-return': ArtImageReturn
   }
 }
 </script>
@@ -105,8 +110,8 @@ export default {
 .portraitMid{ grid-row-end: span 6; grid-column-end: span 3; background-color: rgba(255,255, 255, 0.7);}
 .portraitShort{ grid-row-end: span 5; grid-column-end: span 3;background-color: rgba(255,255, 255, 0.6);}
 
-img.jumble {
+/* img.jumble {
   max-width: 80%;
   margin: minmax(0.5em, 10%);
-}
+} */
 </style>
