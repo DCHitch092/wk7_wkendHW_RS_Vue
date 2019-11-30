@@ -92,35 +92,18 @@ export default {
 
 <style lang="css" scoped>
 .square, .landscapeExtraLong, .landscapeLong, .landscapeMid, .landscapeShort, .portraitShort, .portraitMid, .portraitLong, .portraitExtraLong {
-  display: flex; flex-direction: row; align-items: center; background-color: #ccc; flex-wrap: wrap;
+  display: flex; flex-direction: row; align-items: center; flex-wrap: wrap;
 }
-/* .square{ grid-row-end: span 4; grid-column-end: span 4; }
-.landscapeExtraLong{ grid-row-end: span 3; grid-column-end: span 4;  }
-.landscapeLong{ grid-row-end: span 3; grid-column-end: span 4;}
-.landscapeMid{ grid-row-end: span 3; grid-column-end: span 3;}
-.landscapeShort{ grid-row-end: span 1; grid-column-end: span 2;}
-.portraitExtraLong{ grid-row-end: span 6; grid-column-end: span 2; }
-.portraitLong{ grid-row-end: span 8; grid-column-end: span 3; }
-.portraitMid{ grid-row-end: span 6; grid-column-end: span 3;}
-.portraitShort{ grid-row-end: span 4; grid-column-end: span 3;} */
-
 
 .square{ grid-row-end: span 4; grid-column-end: span 3; }
-.landscapeExtraLong{ grid-row-end: span 3; grid-column-end: span 3;  }
-.landscapeLong{ grid-row-end: span 3; grid-column-end: span 3;}
-.landscapeMid{ grid-row-end: span 3; grid-column-end: span 3;}
-.landscapeShort{ grid-row-end: span 1; grid-column-end: span 3;}
-.portraitExtraLong{ grid-row-end: span 9; grid-column-end: span 3; }
-.portraitLong{ grid-row-end: span 8; grid-column-end: span 3; }
-.portraitMid{ grid-row-end: span 6; grid-column-end: span 3;}
-.portraitShort{ grid-row-end: span 5; grid-column-end: span 3;}
-
-
-/* .square {
-  grid-column-end: span 2;
-  grid-row-end: span 2;
-
-} */
+.landscapeExtraLong{ grid-row-end: span 3; grid-column-end: span 3; background-color: rgba(255,255, 255, 0.7); }
+.landscapeLong{ grid-row-end: span 3; grid-column-end: span 3; background-color: rgba(255,255, 255, 0.6);}
+.landscapeMid{ grid-row-end: span 3; grid-column-end: span 3; background-color: rgba(255,255, 255, 0.7);}
+.landscapeShort{ grid-row-end: span 1; grid-column-end: span 3;background-color: rgba(255,255, 255, 0.6);}
+.portraitExtraLong{ grid-row-end: span 9; grid-column-end: span 3; background-color: rgba(255, 255, 255, 0.7);}
+.portraitLong{ grid-row-end: span 8; grid-column-end: span 3; background-color: rgba(255, 255, 255, 0.6);}
+.portraitMid{ grid-row-end: span 6; grid-column-end: span 3; background-color: rgba(255,255, 255, 0.7);}
+.portraitShort{ grid-row-end: span 5; grid-column-end: span 3;background-color: rgba(255,255, 255, 0.6);}
 
 img.jumble {
   max-width: 80%;

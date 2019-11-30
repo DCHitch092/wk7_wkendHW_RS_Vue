@@ -12,10 +12,10 @@
 
     <section id="filters">
       <ul>
-        <li>method1</li>
-        <li>method2</li>
-        <li>method3</li>
-        <li>method4</li>
+        <li v-on:click="filterOne">method1</li>
+        <li v-on:click="filterTwo">method2</li>
+        <li v-on:click="filterThree">method3</li>
+        <li v-on:click="filterFour">method4</li>
       </ul>
     </section>
 
@@ -38,7 +38,38 @@ export default {
   data() {
     return {
       artworks: [],
+      // pressedOne: false;
+      // pressedTwo: false;
+      // pressedThree: false;
+      // pressedFour: false;
     }
+  },
+
+  computed:{
+    pressedClass: function() {
+      return{
+        'pressed': pressedClass;
+      }
+    }
+  }
+  ,
+
+
+  methods: {
+    filterOne(){
+      this.pressedClass = !this.pressedClass
+
+    },
+    filterTwo(){
+      this.pressedClass = !this.pressedClass
+    },
+    filterThree(){
+      this.pressedClass = !this.pressedClass
+    },
+    filterFour(){
+      this.pressedClass = !this.pressedClass
+    },
+
   },
 
   components: {
@@ -79,11 +110,7 @@ header {
 header span {
   background-color: #cc9966;
     color: #ffffcc;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
     padding: 0.5em 0;
     font-size: 1.5em;
@@ -97,7 +124,8 @@ section#filters {
   grid-row: 2 / 3;
   grid-column: 1 / 1;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
 
 }
 
@@ -105,10 +133,18 @@ section#filters {
   display:flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  margin: 1em 0em;
 }
 
-#filters ul li {
-  margin: 0 0 1em 0;
+#filters li {
+  padding: 1em;
+  background-color: #cc9966;
+  margin: 0.4em;
+}
+
+.pressed{
+  background-color: #993300;
+  color: #cccccc;
 }
 
 #tagline {
@@ -118,9 +154,7 @@ section#list-container{
 display: flex;
 max-height: 15%;
 max-width: 100%;
--ms-flex-wrap: wrap;
 flex-wrap: wrap;
-border: solid;
 grid-row: 3 / 4;
 grid-column: 1 / 1;
 }
