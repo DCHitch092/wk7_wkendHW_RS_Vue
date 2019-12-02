@@ -1,14 +1,15 @@
 <template lang="html">
-<article id="selected-image">
-  <h2>{{ theArtwork.artObject.longTitle }}</h2>
-  <h3>{{ theArtwork.artObject.physicalMedium }}</h3>
+  <article id="selected-image">
+    <h2>{{ theArtwork.artObject.longTitle }}</h2>
+    <h3>{{ theArtwork.artObject.physicalMedium }}</h3>
+    <!-- <p v-on:click="selectedImageNull">return </p> -->
 
-  <img id="fullScreen" :src="theArtwork.artObject.webImage.url">
-  <p>date:</p>
-  <p>materials:</p>
-  <a href="link">link</a>
-  <p>return to view</p>
-</article>
+    <img id="fullScreen" :src="theArtwork.artObject.webImage.url">
+    <p>date:</p>
+    <p>materials:</p>
+    <a href="link">link</a>
+    <p>return to view</p>
+  </article>
 </template>
 
 <script>
@@ -27,6 +28,9 @@ export default {
   },
 
   methods: {
+    // selectedImageNull: function(){
+    //   this.theArtwork = null;
+
   // getInfo(){
   //
   //   }
@@ -37,7 +41,6 @@ export default {
       return fetch(`https://www.rijksmuseum.nl/api/en/collection/${this.objectNumber}?key=${process.env.VUE_APP_KEY}`)
         .then(response => response.json())
         .then(data => this.theArtwork = data)
-
     }
   },
 
@@ -47,6 +50,7 @@ export default {
     })
   }
 }
+
 </script>
 
 <style lang="css" scoped>
