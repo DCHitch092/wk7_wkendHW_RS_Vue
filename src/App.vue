@@ -6,17 +6,12 @@
         <img id="logo" src="/reijer-stolk-logo.svg" alt="logo for the reijer stolk vue app">
       </nav>
 
-      <span id="tagline">a vue inside the artwork of  <b>Reijer Stolk</b>  (1896 - 1945)</span>
+      <span id="tagline"><p>a vue inside the artwork of  <b>Reijer Stolk</b>  (1896 - 1945)</p></span>
 
     </header>
 
-    <section id="filters">
-      <ul>
-        <li v-on:click="filterOne">method1</li>
-        <li v-on:click="filterTwo">method2</li>
-        <li v-on:click="filterThree">method3</li>
-        <li v-on:click="filterFour">method4</li>
-      </ul>
+    <section :class="hiddenClass" class="selected-image">
+      <artwork-detail :objectNumber="selectedImage" />
     </section>
 
     <section id="list-container">
@@ -26,11 +21,16 @@
     <footer>
 
     </footer>
+
+
   </div>
 </template>
 
 <script>
-import ArtList from './components/ArtList.vue';
+import ArtList from './components/ArtList.vue'
+import ArtworkDetail from './components/ArtworkDetail.vue'
+import {eventBus} from "./main.js"
+// import FilterButtons from './components/FilterButtons.vue'
 
 export default {
   name: 'app',
@@ -38,49 +38,64 @@ export default {
   data() {
     return {
       artworks: [],
-      // pressedOne: false;
-      // pressedTwo: false;
-      // pressedThree: false;
-      // pressedFour: false;
+      facets: [],
+      selectedImage: "",
+      selectionHidden: true
     }
   },
 
-  computed:{
-    pressedClass: function() {
-      return{
-        // 'pressed': pressedClass;
+  methods: {
+
+    getEverything(){
+      const promises = [1, 2, 3,4,5,6,7,8,9].map(num => {
+      return fetch(`https://www.rijksmuseum.nl/api/en/collection?key=${process.env.VUE_APP_KEY}&involvedMaker=Reijer+Stolk&p=${num}&ps=12`)
+        .then( response => response.json() )
+      });
+
+      Promise.all(promises)
+      .then(data => {
+        const artworksData = data
+        .reduce((flat, toFlatten) => flat.concat(toFlatten.artObjects), [])
+        .filter(item => item.hasImage === true)
+              this.artworks = artworksData;
+            }
+          )
+
+      // Promise.all(promises).then(data => {
+      //   this.facets = data.facets[4];
+      // })
+
+
+    }
+  },
+
+  computed: {
+    hiddenClass: function() {
+      return {
+        'hidden': this.selectionHidden === true
       }
     }
-  }
-  ,
-
-
-  methods: {
-    filterOne(){
-      // this.pressedClass = !this.pressedClass
-
-    },
-    filterTwo(){
-      // this.pressedClass = !this.pressedClass
-    },
-    filterThree(){
-      // this.pressedClass = !this.pressedClass
-    },
-    filterFour(){
-      // this.pressedClass = !this.pressedClass
-    },
-
   },
 
   components: {
     "art-list": ArtList,
+    "artworkDetail": ArtworkDetail
+    // "filter-buttons": FilterButtons
   },
 
   mounted() {
-    fetch(`https://www.rijksmuseum.nl/api/nl/collection?key=${ process.env.VUE_APP_KEY }&involvedMaker=Reijer+Stolk&ps=100`)
-    .then(response => response.json())
-    .then(data => this.artworks = data.artObjects)
+    this.getEverything()
+
+    eventBus.$on("image-clicked", selectionId => {
+      this.selectedImage = selectionId;
+      this.selectionHidden = !this.selectionHidden;
+    })
+    // this.getFacets()
   }
+  //   fetch(`https://www.rijksmuseum.nl/api/en/collection?key=${ process.env.VUE_APP_KEY }&involvedMaker=Reijer+Stolk&ps=100`)
+  //   .then(response => response.json())
+  //   .then(data => this.artworks = data.artObjects)
+  // }
 }
 </script>
 
@@ -166,5 +181,21 @@ section#footer {
       color: #ffffcc;
 }
 
+.selected-image{
+  background-color: rgba(255, 255, 255, 0.9);
+    z-index: 1;
+    display: block;
+    position: fixed;
+    padding: 6%;
+    top: 25vh;
+    margin-left: -18%;
+    left: 25vw;
+    color: #999999;
+}
+
+.hidden{
+  visibility: hidden;
+
+}
 
 </style>

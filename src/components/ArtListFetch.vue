@@ -1,41 +1,66 @@
 <template lang="html">
-  <li class="artwork" v-on:click="imageClick" :class="computedClass" v-if="artwork.hasImage">
-    <section class="frame frame-top"><img src="cornerTop.svg" class="frame-element topRight" alt=""></section>
-    <artImageReturn  :source="source" />
+  <li class="artwork"
+  :class="computedClass"
+  >
+    <section
+    class="frame frame-top"
+    ><img src="cornerTop.svg" class="frame-element topRight" alt=""></section>
+    <ImageVue :source="source" />
     <section class="frame frame-bottom"><img src="cornerBottom.svg" class="frame-element bottomLeft" alt=""></section>
   </li>
 </template>
 
 <script>
-import ArtImageReturn from './ArtImageReturn.vue'
-import { eventBus} from '../main.js'
+// v-if="artwork.hasImage"
+import ImageVue from './ImageVue.vue'
 
 export default {
-  name: 'art-list-component',
+  name: 'art-list-fetch',
+
+  props: ['objectID'],
 
   data() {
     return {
-      imageObject: this.artwork.webImage,
+      artwork: {},
+      objectID: this.objectID,
+      // imageObject: this.artwork.webImage,
       source: {
-        type: this.artwork.webImage.url,
-        title: this.artwork.title,
-        required: true,
-        place: this.artwork.productionPlaces[0]
+        // type: getImgUrl(),
+        title: "",
+        date: "",
+        materials: [],
+        type: "",
+        // title: this.artwork.artObject.title,
+        required: true
+        // place: this.artwork.productionPlaces[0]
       }
     }
   },
 
-  props: ['artwork'],
+  props: ['objectID'],
+
   components: {
-    'artImageReturn': ArtImageReturn
+    'ImageVue': ImageVue
   },
 
   computed: {
+    // url: function() {
+    //   return this.source.type = this.artwork.artObject.webImage.url
+    // },
+    // date: function(){
+    //   return this.source.date = this.artwork.artObject.dating.sortingDate
+    // },
+    // materials: function(){
+    //   return this.source.materials = this.artwork.artObject.materials
+    // },
+    // title: function(){
+    //   return this.source.title = this.artwork.artObject.title
+    // },
     objectWidth: function(){
-      return this.artwork.webImage.width
+      return this.artwork.artObject.webImage.width
     },
     objectHeight: function(){
-      return this.artwork.webImage.height
+      return this.artwork.artObject.webImage.height
     },
     orientation: function() {
         if (this.objectHeight > this.objectWidth) { return "portrait"}
@@ -60,16 +85,30 @@ export default {
             'portraitMid': this.ratio > 1.2 && this.ratio <= 1.5 && this.orientation === "portrait",
             'landscapeShort': this.ratio > 0 && this.ratio <= 1.2 && this.orientation === "landscape",
             'portraitShort': this.ratio > 0 && this.ratio <= 1.2 && this.orientation === "portrait",
-
         }}
 },
 
   mounted() {
+    // this.getCategories()
+    this.getInfo(),
+    this.getImgUrl()
   },
 
   methods: {
-    imageClick(){
-      eventBus.$emit("image-clicked", this.artwork.objectNumber);
+    getInfo(){
+      return fetch(`https://www.rijksmuseum.nl/api/en/collection/${this.objectID}?key=${process.env.VUE_APP_KEY}`)
+        .then(response => response.json())
+        .then(data => this.artwork = data)
+
+        .then(further =>
+          this.source.type = this.artwork.artObject.webImage.url;
+          this.source.date = this.artwork.artObject.dating.sortingDate;
+          this.source.materials = this.artwork.artObject.materials;
+          this.source.title = this.artwork.artObject.title;
+        )
+    },
+    getImgUrl(){
+      return this.artwork.artObject.webImage.url
     }
   }
 }
